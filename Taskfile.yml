@@ -1,32 +1,24 @@
 # https://taskfile.dev
-version: '3'
+version: "3"
 tasks:
   setup:
-    desc: setup local ruby env
     cmds:
       - task: install-asdf-ruby
       - task: install-gems
 
   install-asdf-ruby:
     desc: install ruby by great ASDF
-    # status:
-    #   - which ruby > /dev/null
-    # todo check contains is asdf version like: ~/.asdf/shims/ruby
+    status:
+      - test -f ~/.asdf/shims/ruby
     cmds:
       - asdf plugin add ruby || true
-      - asdf install ruby 2.7.5
-      - asdf global ruby 2.7.5
-      # new version 3.1.0
-      - ruby version
+      - asdf install ruby 3.3.2
+      - asdf global ruby 3.3.2
+      - ruby --version
 
   install-gems:
-    desc: install daily used gems
-    cmds:
-      - task: install-gem-thor
-
-  install-gem-thor:
-    desc: install thor
+    desc: install commonly used gems
     status:
-      - which thor > /dev/null
+      - thor -v
     cmds:
       - gem install thor
